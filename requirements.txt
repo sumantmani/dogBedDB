@@ -1,0 +1,4 @@
+portalocker
+
+# For testing
+nose
