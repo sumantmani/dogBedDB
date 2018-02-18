@@ -27,6 +27,10 @@ class DBDB:
 
     def __setitem__(self, key, value):
         self._assert_not_closed()
+        return self._tree.set(key, value)
+
+    def __delitem__(self, key):
+        self._assert_not_closed()
         return self._tree.pop(key)
 
     def __contains__(self, key):

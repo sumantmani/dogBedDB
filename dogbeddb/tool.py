@@ -16,7 +16,6 @@ def usage():
 
 def main(argv):
     if not (4 <= len(argv) <= 5):
-        print('oohh bad args', len(argv))
         usage()
         return BAD_ARGS
     dbname, verb, key, value = (argv[1:] + [None])[:4]
@@ -34,7 +33,6 @@ def main(argv):
             del db[key]
             db.commit()
     except KeyError:
-        print("Key not found", file=sys.stderr)
         return BAD_KEY
     return OK
 

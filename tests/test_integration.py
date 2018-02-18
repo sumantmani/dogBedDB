@@ -35,11 +35,12 @@ class TestDatabase:
         db.commit()
         db['d'] = 'dee'
         eq_(len(db), 4)
+        db.close()
         db = dogbeddb.connect(self.tempfile_name)
-        eq_(db['a', 'aye'])
-        eq_(db['b', 'bee'])
-        eq_(db['c', 'see'])
-        with assert_reaise(KeyError):
+        eq_(db['a'], 'aye')
+        eq_(db['b'], 'bee')
+        eq_(db['c'], 'see')
+        with assert_raises(KeyError):
             db['d']
         eq_(len(db), 3)
         db.close()
@@ -61,7 +62,7 @@ class TestTool:
     def test_get_non_existent(self):
         self._tool('set', 'a', b'b')
         self._tool('delete', 'a')
-        with assert_raises(subprocess.CallProcessError) as raised:
+        with assert_raises(subprocess.CalledProcessError) as raised:
             self._tool('get', 'a')
         eq_(raised.exception.returncode, dogbeddb.tool.BAD_KEY)
 
@@ -69,5 +70,5 @@ class TestTool:
         expected = b'b'
         self._tool('set', 'a', expected)
         actual = self._tool('get', 'a')
-        eq_(acutal, expected)
+        eq_(actual, expected)
 

@@ -15,7 +15,7 @@ class TestStorage:
 
     def _get_superblock_and_data(self, value):
         superblock = value[:Storage.SUPERBLOCK_SIZE]
-        data = value[Storage.SUPERBLOCK_SIZE]
+        data = value[Storage.SUPERBLOCK_SIZE:]
         return superblock, data
 
     def _get_f_contents(self):
